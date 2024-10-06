@@ -1,0 +1,19 @@
+﻿1-install 2 packages
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.EntityFrameworkCore.Tools
+
+2- create Employee model
+
+3- create AppDbContext class from DBcontext and create a table for employees of type DBset
+
+4- create connection string in appsettings.json
+
+5- inject dependency on AppdbContext 
+
+6- create a migration using package manager console : 
+    add-migration "something new"   // create new migration file
+    update-database             // add to database
+
+7- create EmployeesController and create a dependency using its constructor
+
+8 - create endpoints in the controller
