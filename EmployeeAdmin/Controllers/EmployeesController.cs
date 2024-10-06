@@ -24,6 +24,20 @@ namespace EmployeeAdmin.Controllers
         }
 
 
+        [HttpGet]
+        [Route("{id:guid}")]
+        public IActionResult GetEmployeeByID(Guid id)
+        {
+            var emp = _appDbContext.employees.Find(id);
+            if (emp == null)
+            {
+                return NotFound();
+            } else
+            {
+                return Ok(emp);
+            }
+        }
+
         [HttpPost]
         public IActionResult AddEmployee(EmployeeDT e)
         {
@@ -41,5 +55,42 @@ namespace EmployeeAdmin.Controllers
 
 
         }
+
+        [HttpPut]
+        [Route("{id:guid}")]
+        public IActionResult UpdateEmployee(Guid id, EmployeeDT empdt)
+        {
+            var emp = _appDbContext.employees.Find(id);
+            if (emp == null)
+            {
+                return NotFound();
+            }else
+            {
+                emp.Name = empdt.Name;
+                emp.Email = empdt.Email;
+                emp.Phone = empdt.Phone;
+                emp.Salary = empdt.Salary;
+                _appDbContext.SaveChanges();
+            }
+
+            return Ok(emp);
+        }
+
+        [HttpDelete]
+        [Route("{id:guid}")]
+        public IActionResult DeleteEmployee(Guid id)
+        {
+            var emp = _appDbContext.employees.Find(id);
+            if (emp == null)
+            {
+                return NotFound();
+            }else
+            {
+                _appDbContext.employees.Remove(emp);
+                _appDbContext.SaveChanges();
+            }
+            return Ok(emp);
+        }
+
     }
 }
